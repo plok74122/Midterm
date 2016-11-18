@@ -15,7 +15,7 @@
 				<%= link_to event.title , event_path(event) %>
 			</td>
 			<td width = 10%>
-			<p><%= @event.category.try(:name) %></p>
+			<p><%= event.category.try(:name) %></p>
 			</td>
 			<td width = 10%>
 			<%= event.comments.last.try(:updated_at) %> 
@@ -35,7 +35,7 @@
 	<% end %>
 </table>
 
-<%#= paginate @events %>
+<%= paginate @events %>
 
 <h3>請在此發布新的災情信息或求救:  </h3>
 <%= form_for @event, :url => events_path  do |f| %>

@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 	before_action :set_events, :only =>[ :show, :edit, :update, :destroy]
 	before_action :event_value, :only => [:index]
 	def index
-		@events = Event.includes(:comments , :user, :categories).page(params[:page]).per(5)
+		@events = Event.includes(:comments , :user, :category).page(params[:page]).per(5)
 		#page(params[:page]).per(5)
    		@categories = Category.all
 	end

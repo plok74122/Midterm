@@ -28,7 +28,7 @@
 <% @comments.each do |comment| %>
 	<li>
 	  <%= comment.comment_text %> 
-	  <% if current_user == @event.user %>	
+	  <% if current_user == comment.user %>	
 		<%= link_to 'edit', edit_event_comment_path(@event, comment) %>
 		<%= link_to 'delete', event_comment_path(@event, comment), :method => :delete%>
 		<%end%>

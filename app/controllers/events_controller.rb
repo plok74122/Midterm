@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	# before_action :authenticate_user!
+	before_action :authenticate_user!
 	before_action :set_events, :only =>[ :show, :edit, :update, :destroy]
 	before_action :event_value, :only => [:index]
 	def index
@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 	def create
 		@event = Event.new(event_params)
 		@events =Event.all
-		#@event.user = current_user
+		@event.user = current_user
 		if @event.save
 			flash[:notice] = "災情信息成功發布"
 			redirect_to events_url

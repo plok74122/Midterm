@@ -14,14 +14,14 @@ class EventsController < ApplicationController
 
 	def create
 		@event = Event.new(event_params)
-		@events =Event.all
+		@events =Event.includes(:comments , :user, :category).page(params[:page]).per(5)
 		@event.user = current_user
 		if @event.save
 			flash[:notice] = "災情信息成功發布"
 			redirect_to events_url
 		else
 		 @categories = Category.all 
-			render 'index'	
+			render :action => :index	
 		end	
 	end
 

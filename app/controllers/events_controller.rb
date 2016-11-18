@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 	def create
 		@event = Event.new(event_params)
 		@events =Event.all
-		@event.user = current_user
+		#@event.user = current_user
 		if @event.save
 			flash[:notice] = "災情信息成功發布"
 			redirect_to events_url

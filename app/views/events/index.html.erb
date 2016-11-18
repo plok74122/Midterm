@@ -1,0 +1,36 @@
+
+<h1>地震災情支援網</h1>
+
+<table class ="table">	
+		<tr class="sort">
+			<th>災情情況發布</th>
+			<th><%= link_to "Last Reply" , events_path( :order => "Update" , :keyword => @search_by ) %></th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	<% @events.each do |event| %>
+		
+		<tr>	
+			<td width = 70%>
+				<%= link_to event.title , event_path(event) %>
+			</td>
+			<td width = 10%>
+				<%#= event.comments.last.try(:updated_at) %>
+			</td>
+			<td width = 10%>
+				<%= link_to 'Edit', edit_event_path(event) , :class => "btn btn-primary" %>		
+			</td>
+			<td width = 10%>	
+				<%= button_to 'Delete', event_path(event), :method => :delete, :data => {:confirm => "確定要刪除此災情信息嗎？ "} , :class => "btn btn-danger" %>
+			</td>
+		</tr>	
+	<% end %>
+</table>
+
+<%#= paginate @events %>
+
+<h3>請在此發布新的災情信息或求救:  </h3>
+<%= form_for @event, :url => events_path  do |f| %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<%= f.submit "現在就發布信息" , :class => "btn btn-default" %>
+<% end %>	

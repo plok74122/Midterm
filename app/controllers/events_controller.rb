@@ -3,9 +3,9 @@ class EventsController < ApplicationController
 	before_action :set_events, :only =>[ :show, :edit, :update, :destroy]
 	before_action :event_value, :only => [:index]
 	def index
-		@events = Event.all 
+		@events = Event.includes(:comments , :user, :categories).page(params[:page]).per(5)
 		#page(params[:page]).per(5)
-   		# @categories = Category.all
+   		@categories = Category.all
 	end
 
 	def new
@@ -15,24 +15,24 @@ class EventsController < ApplicationController
 	def create
 		@event = Event.new(event_params)
 		@events =Event.all
-		#@event.user = current_user
+		@event.user = current_user
 		if @event.save
 			flash[:notice] = "災情信息成功發布"
 			redirect_to events_url
 		else
-		# @categories = Category.all 
+		 @categories = Category.all 
 			render 'index'	
 		end	
 	end
 
 	def show
 		@page_title = @event.title
-		# @comments = @event.comments
-		# if params[:edit_comment]
-		# 	@comment = @event.comments.find([params[:edit_comment]])
-		# else
-		# 	@comment = Comment.new
-		# end	
+		@comments = @event.comments
+		if params[:edit_comment]
+			@comment = @event.comments.find([params[:edit_comment]])
+		else
+			@comment = Comment.new
+		end	
 	end
 	
 	def edit		
@@ -56,7 +56,7 @@ class EventsController < ApplicationController
 	private
 	
 	def event_params
-		params.require( :event ).permit( :title, :description)#, :category_id,  :category_ids => [] )
+		params.require( :event ).permit( :title, :description, :category_id,  :category_ids => [] )
 	end	 	
 
 	def set_events

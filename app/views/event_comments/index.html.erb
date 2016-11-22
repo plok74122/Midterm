@@ -1,14 +1,12 @@
 <ul>
-<% @comments.each do |comment| %>
-	<li>
-	  <%= comment.comment_text %>
-	  <%= link_to 'show', event_comment_path(@event, comment) %>
-	  <%= link_to 'edit', edit_event_comment_path(@event, comment) %>
-	  <%= link_to 'destroy', event_comment_path(@event, comment),
-	                            :method => :delete %>
-	</li>
-<% end %>
-
+  <% @comments.each do |comment| %>
+      <li>
+        <%= comment.comment_text %>
+        <%= link_to 'show', event_comment_path(@event, comment) %>
+        <%= link_to 'edit', edit_event_comment_path(@event, comment) %>
+        <%= link_to 'destroy', event_comment_path(@event, comment),
+                    :method => :delete %>
+      </li>
+  <% end %>
 </ul>
-
-	  <%= link_to 'new answer', new_event_comment_path(@event) %>
+<%= link_to 'new answer', new_event_comment_path(@event) %>

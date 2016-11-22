@@ -1,44 +1,43 @@
 <h2><%= @event.title %></h2>
 
-<table class = "table">
-	<tr>
-		<td>
-			<p>Category: <%= @event.category.try(:name) %></p>
-		</td>	
-		<td>
-			<p><%= simple_format(@event.description) %></p>
-		</td>
-		<% if current_user == @event.user %>	
-		<td>
-				<%= link_to 'Edit', edit_event_path(@event) , :class => "btn btn-primary" %>		
-		</td>
-		<td>
-			<%= link_to 'Delete', event_path(@event), :method => :delete, :data => {:confirm => "確定要刪除此災情信息嗎？ "} ,:class => "btn btn-danger" %>
-		</td>
-		<% else %>
-			<td></td>
-			<td></td>
-			<%end%>			
-	</tr>	
-	<tr>
-	</tr>
+<table class="table">
+  <tr>
+    <td>
+      <p>Category: <%= @event.category.try(:name) %></p>
+    </td>
+    <td>
+      <p><%= simple_format(@event.description) %></p>
+    </td>
+    <% if current_user == @event.user %>
+        <td>
+          <%= link_to 'Edit', edit_event_path(@event), :class => "btn btn-primary" %>
+        </td>
+        <td>
+          <%= link_to 'Delete', event_path(@event), :method => :delete, :data => { :confirm => "確定要刪除此災情信息嗎？ " }, :class => "btn btn-danger" %>
+        </td>
+    <% else %>
+        <td></td>
+        <td></td>
+    <% end %>
+  </tr>
+  <tr>
+  </tr>
 </table>
 
 <ul>
-<% @comments.each do |comment| %>
-	<li>
-	  <%= comment.comment_text %> 
-	  <% if current_user == comment.user %>	
-		<%= link_to 'edit', edit_event_comment_path(@event, comment) %>
-		<%= link_to 'delete', event_comment_path(@event, comment), :method => :delete%>
-		<%end%>
-	</li>
-<% end %>
-<%= form_for [@event, @comment] do |f| %>
-   <%= f.text_field :comment_text %>
-   <%= f.submit %>
-<% end %>
+  <% @comments.each do |comment| %>
+      <li>
+        <%= comment.comment_text %>
+        <% if current_user == comment.user %>
+            <%= link_to 'edit', edit_event_comment_path(@event, comment) %>
+            <%= link_to 'delete', event_comment_path(@event, comment), :method => :delete %>
+        <% end %>
+      </li>
+  <% end %>
+  <%= form_for [@event, @comment] do |f| %>
+      <%= f.text_field :comment_text %>
+      <%= f.submit %>
+  <% end %>
 </ul>
 
-
-<p><%= link_to 'Back to Index' , events_path , :class => "btn btn-default" %></p>
+<p><%= link_to 'Back to Index', events_path, :class => "btn btn-default" %></p>
